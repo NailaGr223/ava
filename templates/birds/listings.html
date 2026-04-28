@@ -1,37 +1,36 @@
 {% extends 'base.html' %}
 
-{% block title %}Available Birds - Avian Haven{% endblock %}
+{% block title %}Browse Birds - Avian Haven{% endblock %}
 
 {% block content %}
-<h2 class="mb-4">Available Birds</h2>
+<h2 class="mb-4">Explore Listings</h2>
 
 <div class="row">
-    {% for bird in birds %}
+    {% for bird in for_sale %}
     <div class="col-md-4 mb-4">
-        <div class="card h-100 shadow-sm hover-card">
+        <div class="card h-100 shadow">
             {% if bird.image %}
-                <img src="{{ bird.image.url }}" class="card-img-top" alt="{{ bird.title }}" style="height: 220px; object-fit: cover;">
+                <img src="{{ bird.image.url }}" class="card-img-top" style="height: 220px; object-fit: cover;" alt="{{ bird.title }}">
             {% endif %}
-            
             <div class="card-body">
-                <h5 class="card-title">{{ bird.title }}</h5>
-                <p class="text-muted">{{ bird.breed }} • {{ bird.age }} months • {{ bird.gender|title }}</p>
-                <p class="fs-5 fw-bold text-success">KSh {{ bird.price }}</p>
-                <small class="text-muted">{{ bird.location }}</small>
-            </div>
-
-            <div class="card-footer d-flex gap-2">
-                <a href="{% url 'bird_detail' bird.id %}" class="btn btn-success btn-sm flex-grow-1">View Details</a>
-                
-                {% if user.is_authenticated %}
-                    <button onclick="addToCart({{ bird.id }})" class="btn btn-outline-success btn-sm">🛒</button>
-                    <button onclick="addToWishlist({{ bird.id }})" class="btn btn-outline-danger btn-sm">♡</button>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-success btn-sm">Login to Buy</a>
+                <span class="badge bg-success mb-2">{{ bird.get_listing_type_display|default:"For Sale" }}</span>
+                <h5>{{ bird.title }}</h5>
+                <p class="text-muted">{{ bird.breed|default:"—" }} • {{ bird.location }}</p>
+                {% if bird.price %}
+                    <p class="fs-5 fw-bold text-success">KSh {{ bird.price }}</p>
                 {% endif %}
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'bird_detail' bird.id %}" class="btn btn-success w-100">View Details</a>
             </div>
         </div>
     </div>
+    {% empty %}
+        <p class="col-12 text-center py-5">No birds found.</p>
     {% endfor %}
 </div>
+
+<p class="text-center mt-4 text-muted">
+    Debug: Total birds in DB = {{ for_sale|length }}
+</p>
 {% endblock %}

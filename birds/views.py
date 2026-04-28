@@ -6,8 +6,19 @@ from .forms import BirdForm
 
 
 def bird_listings(request):
-    birds = Bird.objects.filter(is_available=True).order_by('-created_at')
-    return render(request, 'birds/listings.html', {'birds': birds})
+    # Show ALL birds, ignore filters for now
+    birds = Bird.objects.all()
+    
+    print("DEBUG: Total birds loaded =", birds.count())
+    
+    context = {
+        'for_sale': birds,
+        'rehoming': birds,
+        'adoption': birds,
+        'food': birds,
+    }
+    
+    return render(request, 'birds/listings.html', context)
 
 def bird_detail(request, bird_id):
     bird = get_object_or_404(Bird, id=bird_id, is_available=True)
@@ -146,3 +157,19 @@ def vet_dashboard(request):
         return redirect('home')
     
     return render(request, 'vet/dashboard.html', {})
+def search(request):
+    query = request.GET.get('q', '').strip()
+    results = Bird.objects.none()
+    
+    if query:
+        results = Bird.objects.filter(
+            models.Q(title__icontains=query) |
+            models.Q(breed__icontains=query) |
+            models.Q(description__icontains=query) |
+            models.Q(location__icontains=query)
+        ).filter(is_available=True)[:20]
+    
+    return render(request, 'search_results.html', {
+        'query': query,
+        'results': results
+    })

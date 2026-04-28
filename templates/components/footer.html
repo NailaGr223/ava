@@ -1,4 +1,4 @@
-<footer class="bg-success text-white py-5 mt-5">
+<footer class="bg-success text-white py-5 mt-auto">
     <div class="container">
         <div class="row">
             <div class="col-md-4">
@@ -11,30 +11,30 @@
                     <li><a href="{% url 'home' %}" class="text-white text-decoration-none">Home</a></li>
                     <li><a href="{% url 'bird_listings' %}" class="text-white text-decoration-none">Browse Birds</a></li>
                     <li><a href="{% url 'blog_list' %}" class="text-white text-decoration-none">Blogs</a></li>
+                    <li><a href="{% url 'contact' %}" class="text-white text-decoration-none">Contact</a></li>
                 </ul>
             </div>
             <div class="col-md-2">
                 <h6>For Buyers</h6>
                 <ul class="list-unstyled">
-                    <li><a href="#" class="text-white text-decoration-none">How to Buy</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Rehoming</a></li>
-                    <li><a href="#" class="text-white text-decoration-none">Adoption</a></li>
+                    <li><a href="{% url 'bird_listings' %}?type=sell" class="text-white text-decoration-none">Buy</a></li>
+                    <li><a href="{% url 'bird_listings' %}?type=rehome" class="text-white text-decoration-none">Rehome</a></li>
+                    <li><a href="{% url 'bird_listings' %}?type=adopt" class="text-white text-decoration-none">Adopt</a></li>
                 </ul>
             </div>
             <div class="col-md-2">
-                <h6>For Sellers & Vets</h6>
+                <h6>For Sellers</h6>
                 <ul class="list-unstyled">
-                    <li><a href="{% url 'add_bird' %}" class="text-white text-decoration-none">List a Bird</a></li>
-                    <li><a href="{% url 'seller_dashboard' %}" class="text-white text-decoration-none">Seller Dashboard</a></li>
+                    <li><a href="{% url 'add_bird' %}" class="text-white text-decoration-none">List Bird / Food</a></li>
+                    <li><a href="{% url 'seller_dashboard' %}" class="text-white text-decoration-none">Dashboard</a></li>
                 </ul>
             </div>
             <div class="col-md-2">
                 <h6>Contact</h6>
-                <p class="small">Nairobi, Kenya<br>
-                Email: info@avianhaven.co.ke</p>
+                <p class="small">Nairobi, Kenya<br>info@avianhaven.co.ke</p>
             </div>
         </div>
-        <hr class="my-4">
+        <hr>
         <div class="text-center small">
             © 2026 Avian Haven • Ethical • Regulated • Transparent
         </div>

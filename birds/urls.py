@@ -25,4 +25,5 @@ urlpatterns = [
     
     path('buyer/dashboard/', views.buyer_dashboard, name='buyer_dashboard'),
     path('vet/dashboard/', views.vet_dashboard, name='vet_dashboard'),
+    path('search/', views.search, name='search'),
 ]

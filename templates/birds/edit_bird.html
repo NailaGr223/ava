@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}{% if bird %}Edit{% else %}List{% endif %} Bird - Avian Haven{% endblock %}
+{% block title %}{% if bird %}Edit{% else %}List{% endif %} Item - Avian Haven{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-lg-8">
         <div class="card shadow">
             <div class="card-header bg-success text-white">
-                <h4>{% if bird %}Edit Bird{% else %}List New Bird{% endif %}</h4>
+                <h4>{% if bird %}Edit{% else %}List New{% endif %} Item</h4>
             </div>
             <div class="card-body p-4">
                 <form method="POST" enctype="multipart/form-data">
@@ -23,8 +23,19 @@
                     </div>
                     {% endfor %}
 
+                    <!-- Listing Type Field -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Listing Type</label>
+                        <select name="listing_type" class="form-select" required>
+                            <option value="sell" {% if bird and bird.listing_type == 'sell' %}selected{% endif %}>For Sale</option>
+                            <option value="rehome" {% if bird and bird.listing_type == 'rehome' %}selected{% endif %}>Rehoming</option>
+                            <option value="adopt" {% if bird and bird.listing_type == 'adopt' %}selected{% endif %}>Adoption</option>
+                            <option value="food" {% if bird and bird.listing_type == 'food' %}selected{% endif %}>Bird Food & Supplies</option>
+                        </select>
+                    </div>
+
                     <button type="submit" class="btn btn-success w-100 py-3 fw-bold">
-                        {% if bird %}Update Bird{% else %}List This Bird{% endif %}
+                        {% if bird %}Update Item{% else %}List This Item{% endif %}
                     </button>
                 </form>
             </div>
