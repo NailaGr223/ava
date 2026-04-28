@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - Avian Haven{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2 class="mb-4">Checkout</h2>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-body">
+                    <h5>Delivery Information</h5>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label>Full Name</label>
+                            <input type="text" class="form-control" value="{{ user.get_full_name }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Phone Number</label>
+                            <input type="tel" class="form-control" value="{{ user.phone }}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label>Delivery Location</label>
+                            <input type="text" class="form-control" value="{{ user.location }}" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card sticky-top" style="top: 20px;">
+                <div class="card-body">
+                    <h5>Order Summary</h5>
+                    <hr>
+                    <p><strong>Total Amount:</strong> KSh {{ total }}</p>
+                    <button onclick="showPurchaseSuccess()" class="btn btn-success w-100 btn-lg">
+                        Confirm Purchase
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

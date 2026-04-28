@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Avian Haven - Ethical Bird Marketplace{% endblock %}
+
+{% block content %}
+<div class="hero text-center py-5 text-white" style="background: linear-gradient(rgba(26,46,26,0.9), rgba(26,46,26,0.9)), url('https://source.unsplash.com/random/1600x900/?african+birds') center/cover;">
+    <h1 class="display-3 fw-bold">Find Your Feathered Companion</h1>
+    <p class="lead fs-3">Ethical • Verified • Trusted</p>
+    <a href="{% url 'bird_listings' %}" class="btn btn-warning btn-lg mt-4 px-5">Browse Birds Now</a>
+</div>
+
+<div class="row mt-5 g-4">
+    <div class="col-md-4">
+        <div class="card h-100 text-center p-4">
+            <i class="fas fa-shield-alt fa-4x text-success mb-3"></i>
+            <h5>Verified Sellers & Vets</h5>
+            <p class="text-muted">Every seller and veterinarian is carefully verified for your peace of mind.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 text-center p-4">
+            <i class="fas fa-heart fa-4x text-danger mb-3"></i>
+            <h5>Ethical Rehoming & Adoption</h5>
+            <p class="text-muted">Responsible breeding, rescue and adoption platform for birds.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 text-center p-4">
+            <i class="fas fa-truck fa-4x text-primary mb-3"></i>
+            <h5>Safe Delivery Across Kenya</h5>
+            <p class="text-muted">Live order tracking from seller to your doorstep.</p>
+        </div>
+    </div>
+</div>
+
+<div class="text-center my-5">
+    <h2 class="mb-4">Why Choose Avian Haven?</h2>
+    <p class="lead">We believe every bird deserves a loving home and every buyer deserves trust and transparency.</p>
+</div>
+{% endblock %}

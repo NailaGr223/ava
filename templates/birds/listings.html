@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Browse Birds - Avian Haven{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Available Birds</h2>
+
+<div class="row">
+    {% for bird in birds %}
+    <div class="col-md-4 mb-4">
+    <div class="card h-100 shadow-sm hover-card">
+        {% if bird.image %}
+            <img src="{{ bird.image.url }}" class="card-img-top" alt="{{ bird.title }}" style="height: 220px; object-fit: cover;">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ bird.title }}</h5>
+            <p class="text-muted">{{ bird.breed }} • {{ bird.age }} months • {{ bird.gender|title }}</p>
+            <p class="fs-5 fw-bold text-success">KSh {{ bird.price }}</p>
+            <small class="text-muted">{{ bird.location }}</small>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'bird_detail' bird.id %}" class="btn btn-success btn-sm">View Details</a>
+            <button class="btn btn-outline-success btn-sm">Add to Cart</button>
+        </div>
+    </div>
+</div>
+    {% endfor %}
+</div>
+{% endblock %}

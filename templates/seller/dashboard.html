@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Seller Dashboard - Avian Haven{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Seller Dashboard</h2>
+        <a href="{% url 'add_bird' %}" class="btn btn-warning">+ List New Bird</a>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card text-center bg-light">
+                <div class="card-body">
+                    <h5 class="text-success">{{ total_birds }}</h5>
+                    <p class="mb-0">Birds Listed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h4 class="mb-3">My Listings</h4>
+
+    {% if birds %}
+        <div class="row">
+            {% for bird in birds %}
+            <div class="col-md-6 col-lg-4 mb-4">
+                <div class="card h-100">
+                    {% if bird.image %}
+                        <img src="{{ bird.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ bird.title }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ bird.title }}</h5>
+                        <p class="card-text">
+                            <strong>{{ bird.breed }}</strong> • {{ bird.age }} months • {{ bird.gender|title }}<br>
+                            <span class="text-success fw-bold">KSh {{ bird.price }}</span>
+                        </p>
+                        <small class="text-muted">{{ bird.location }}</small>
+                    </div>
+                    <div class="card-footer d-flex gap-2">
+                        <a href="#" class="btn btn-sm btn-outline-success flex-grow-1">Edit</a>
+                        <a href="#" class="btn btn-sm btn-outline-danger flex-grow-1">Delete</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-5">
+            <i class="fas fa-dove fa-4x text-muted mb-3"></i>
+            <h5>No birds listed yet</h5>
+            <p class="text-muted">Start by listing your first bird for sale or rehoming.</p>
+            <a href="{% url 'add_bird' %}" class="btn btn-success">List Your First Bird</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

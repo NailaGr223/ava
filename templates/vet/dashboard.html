@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Vet Dashboard - Avian Haven{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h2>Vet Dashboard</h2>
+    <div class="alert alert-info">
+        Welcome, Dr. {{ user.username }} 
+        {% if user.is_verified %}<span class="badge bg-success">Verified Vet</span>{% endif %}
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Upload Certificate</h5>
+                    <a href="#" class="btn btn-success">Upload Documents</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5>Connect with Buyers</h5>
+                    <a href="#" class="btn btn-outline-success">View Requests</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
