@@ -1,21 +1,35 @@
 {% extends 'base.html' %}
 
-{% block title %}Create Account - Avian Haven{% endblock %}
+{% block title %}Join Avian Haven{% endblock %}
 
 {% block content %}
 <div class="row justify-content-center mt-5">
-    <div class="col-md-6">
+    <div class="col-md-7 col-lg-5">
         <div class="card shadow">
             <div class="card-header bg-success text-white text-center py-3">
                 <h4>Join Avian Haven</h4>
             </div>
-            <div class="card-body">
-                <form method="POST">
+            <div class="card-body p-4">
+
+                <form method="POST" id="registerForm">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                    
+
+                    {% for field in form %}
                     <div class="mb-3">
-                        <label class="form-label fw-bold">I want to join as:</label>
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% if field.errors %}
+                            <div class="text-danger small mt-1">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+
+                    <!-- Role Selection -->
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Account Type</label>
                         <select name="role" class="form-select" required>
                             <option value="buyer">Buyer - Looking for birds</option>
                             <option value="seller">Seller - Selling birds</option>
@@ -23,10 +37,41 @@
                         </select>
                     </div>
 
-                    <button type="submit" class="btn btn-success w-100 py-2">Create My Account</button>
+                    <button type="submit" class="btn btn-success w-100 py-3 fw-bold">Create My Account</button>
                 </form>
+
             </div>
         </div>
     </div>
 </div>
+
+<script>
+document.getElementById('registerForm').addEventListener('submit', function(e) {
+    const password1 = document.querySelector('input[name="password1"]');
+    const password2 = document.querySelector('input[name="password2"]');
+    
+    if (password1 && password2) {
+        const pass = password1.value;
+        
+        if (pass.length < 8) {
+            e.preventDefault();
+            alert("❌ Password must be at least 8 characters long.");
+            password1.focus();
+            return;
+        }
+        if (!/[A-Z]/.test(pass)) {
+            e.preventDefault();
+            alert("❌ Password must contain at least one uppercase letter.");
+            password1.focus();
+            return;
+        }
+        if (!/[0-9]/.test(pass)) {
+            e.preventDefault();
+            alert("❌ Password must contain at least one number.");
+            password1.focus();
+            return;
+        }
+    }
+});
+</script>
 {% endblock %}

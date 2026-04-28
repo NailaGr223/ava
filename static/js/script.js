@@ -35,3 +35,13 @@ function showPurchaseSuccess() {
     
     setTimeout(() => msg.remove(), 4500);
 }
+function addToCart(birdId) {
+    if (!birdId) return;
+    window.location.href = `/birds/add-to-cart/${birdId}/`;
+}
+
+// Add to Wishlist
+function addToWishlist(birdId) {
+    if (!birdId) return;
+    window.location.href = `/birds/add-to-wishlist/${birdId}/`;
+}

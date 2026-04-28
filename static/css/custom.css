@@ -110,3 +110,6 @@ body {
 footer {
     margin-top: auto;
 }
+.hover-underline:hover {
+    text-decoration: underline !important;
+}

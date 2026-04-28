@@ -3,32 +3,43 @@
 {% block title %}{{ bird.title }} - Avian Haven{% endblock %}
 
 {% block content %}
-<div class="row">
+<div class="row g-5">
     <div class="col-lg-6">
-        <img src="{{ bird.image.url }}" class="img-fluid rounded shadow" alt="{{ bird.title }}" style="max-height: 500px; object-fit: cover;">
+        <img src="{{ bird.image.url }}" class="img-fluid rounded shadow" 
+             style="width:100%; max-height:550px; object-fit:cover;" alt="{{ bird.title }}">
     </div>
     
     <div class="col-lg-6">
-        <h2>{{ bird.title }}</h2>
+        <h1>{{ bird.title }}</h1>
         <h4 class="text-success">{{ bird.breed }} • {{ bird.age }} months • {{ bird.gender|title }}</h4>
         
-        <h3 class="mt-3">KSh {{ bird.price }}</h3>
-        <p><strong>Location:</strong> {{ bird.location }}</p>
-        <p><strong>Health Status:</strong> <span class="badge bg-success">{{ bird.health_status }}</span></p>
-        <p><strong>Quantity Left:</strong> {{ bird.quantity }}</p>
+        <h2 class="mt-3 text-success">KSh {{ bird.price }}</h2>
         
-        <p class="mt-4">{{ bird.description }}</p>
+        <p><strong>Location:</strong> {{ bird.location }}</p>
+        <p><strong>Health Status:</strong> <span class="badge bg-success fs-6">{{ bird.health_status }}</span></p>
+        <p><strong>Quantity Available:</strong> {{ bird.quantity }}</p>
         
         <div class="mt-4">
-            <a href="#" class="btn btn-success btn-lg me-3">Add to Cart</a>
-            <a href="#" class="btn btn-outline-success btn-lg">Add to Wishlist</a>
+            <p>{{ bird.description|linebreaks }}</p>
         </div>
-        
+
+       <div class="mt-4 d-flex gap-3">
+    {% if user.is_authenticated %}
+        <button onclick="addToCart({{ bird.id }})" class="btn btn-success btn-lg flex-grow-1">
+            Add to Cart
+        </button>
+        <button onclick="addToWishlist({{ bird.id }})" class="btn btn-outline-danger btn-lg">
+            ♡ Add to Wishlist
+        </button>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-success btn-lg flex-grow-1">
+            Login to Add to Cart
+        </a>
+    {% endif %}
+</div>
+
         <hr>
-        <p class="small text-muted">
-            Listed by: <strong>{{ bird.seller.username }}</strong> 
-            {% if bird.seller.is_verified %}✅ Verified Seller{% endif %}
-        </p>
+        <p class="small">Listed by: <strong>{{ bird.seller.username }}</strong></p>
     </div>
 </div>
 {% endblock %}
