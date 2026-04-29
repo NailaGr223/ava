@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Bird, CartItem, Wishlist
 from .forms import BirdForm
+from django.db import models
 
 
 def bird_listings(request):
@@ -52,7 +53,9 @@ def seller_dashboard(request):
     birds = Bird.objects.filter(seller=request.user).order_by('-created_at')
     return render(request, 'seller/dashboard.html', {
         'birds': birds,
-        'total_birds': birds.count()
+        'total_birds': birds.count(),
+        'total_sales': birds.filter(is_available=False).count(),
+        'total_items_sold': birds.filter(is_available=False).aggregate(total=models.Sum('quantity'))['total'] or 0
     })
 
 @login_required

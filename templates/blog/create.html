@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}Write New Blog - Avian Haven{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4>Write New Blog Post</h4>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% for field in form %}
+                    <div class="mb-3">
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {% if field.errors %}
+                            <div class="text-danger small">{{ field.errors }}</div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-success w-100 py-3 fw-bold">Publish Blog</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
